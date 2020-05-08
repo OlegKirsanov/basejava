@@ -8,7 +8,7 @@ public class ArrayStorage {
     int position = 0;
 
     void clear() {
-        for(int index = 0; index < storage.length; index++){
+        for(int index = 0; index < position; index++){
             storage[index] = null;
         }
         position = 0;
@@ -19,25 +19,25 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        for(int index = 0; index < size(); index++){
+        for(int index = 0; index < position; index++){
             if(storage[index].uuid.equals(uuid)){
                 return storage[index];
             }
         }
-        Resume notFound = new Resume();
-        notFound.uuid = "Resume not found!";
-        return notFound;
+//        Resume notFound = new Resume();
+//        notFound.uuid = "Resume not found!";
+        return null;
     }
 
-    int indexOf(String uuid) {
-        int rsl = -1;
+    private int indexOf(String uuid) {
+        int indexFound = -1;
         for(int index = 0; index < position; index++) {
             if (storage[index].uuid.equals(uuid)) {
-                rsl = index;
+                indexFound = index;
                 break;
             }
         }
-        return rsl;
+        return indexFound;
     }
 
     void delete(String uuid) {
@@ -51,8 +51,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] rsl = Arrays.copyOf(storage, size());
-        return rsl;
+        return Arrays.copyOf(storage, size());
     }
 
     int size() {
